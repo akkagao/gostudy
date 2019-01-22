@@ -122,9 +122,19 @@ func TestContainsany(t *testing.T) {
 			So(result, ShouldBeTrue)
 		})
 		Convey("中文测试是否包含:", func() {
-			result := strings.Contains("aaaa", "ab")
+			result := strings.ContainsAny("我是最帅的aaa", "帅哥")
 			fmt.Println(result)
 			So(result, ShouldBeTrue)
+		})
+		Convey("空字符串是否包含:", func() {
+			result := strings.ContainsAny("", "dd")
+			fmt.Println(result)
+			So(result, ShouldBeFalse)
+		})
+		Convey("空字符串是否包含空字符串:", func() {
+			result := strings.ContainsAny("", "")
+			fmt.Println(result)
+			So(result, ShouldBeFalse)
 		})
 	})
 }
