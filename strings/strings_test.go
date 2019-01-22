@@ -233,12 +233,53 @@ func TestLastIndex(t *testing.T) {
 			So(result, ShouldEqual, len(s))
 		})
 		Convey("中文测试:", func() {
-			s := "我是请来的猴子兵"
+			s := "我是猴子请来的猴子兵"
 			result := strings.LastIndex(s, "猴子")
 			fmt.Println(result)
 			// 因为中文在utf-8编码下占3个字节
-			So(result, ShouldEqual, 15)
+			So(result, ShouldEqual, 21)
 		})
 
+	})
+}
+
+/**
+查找字符在字符串中第一次出现的位置
+
+目标参数说明
+s string
+	用于查找的目标字符串
+r rune
+	字符查找的字符串
+
+返回值
+int
+	字符第一次出现的索引位置
+
+测试命令
+go test -v -test.run TestIndexRune
+*/
+func TestIndexRune(t *testing.T) {
+	Convey("查找字符r在字符串s中第一次出现的位置", t, func() {
+		Convey("查找第一次出现的位置:", func() {
+			result := strings.IndexRune("abc", 'b')
+			fmt.Println(result)
+			So(result, ShouldEqual, 1)
+		})
+		Convey("找不到的情况:", func() {
+			result := strings.IndexRune("abc", 'f')
+			fmt.Println(result)
+			So(result, ShouldEqual, -1)
+		})
+		Convey("空字符串的情况:", func() {
+			result := strings.IndexRune("", 'f')
+			fmt.Println(result)
+			So(result, ShouldEqual, -1)
+		})
+		Convey("中文测试:", func() {
+			result := strings.IndexRune("又是猴子", '猴')
+			fmt.Println(result)
+			So(result, ShouldEqual, 6)
+		})
 	})
 }
