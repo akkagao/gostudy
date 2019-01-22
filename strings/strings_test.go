@@ -250,7 +250,7 @@ func TestLastIndex(t *testing.T) {
 s string
 	用于查找的目标字符串
 r rune
-	字符查找的字符串
+	字符用于查找的字符串
 
 返回值
 int
@@ -282,4 +282,66 @@ func TestIndexRune(t *testing.T) {
 			So(result, ShouldEqual, 6)
 		})
 	})
+}
+
+/**
+查找子字符串中任意一个字符第一次出现的位置
+
+目标参数说明
+s string
+	用于查找的目标字符串
+chars string
+	用于查找的字符串
+
+返回值
+int
+	chars所在索引位置
+
+测试命令
+go test -v -test.run TestIndexAny
+*/
+func TestIndexAny(t *testing.T) {
+	Convey("查找子字符串中任意一个字符出现的位置", t, func() {
+		Convey("测试存在的情况:", func() {
+			result := strings.IndexAny("abc", "fbf")
+			fmt.Println(result)
+			So(result, ShouldEqual, 1)
+		})
+		Convey("测试不存在的情况:", func() {
+			result := strings.IndexAny("abc", "dd")
+			fmt.Println(result)
+			So(result, ShouldEqual, -1)
+		})
+		Convey("测试中文:", func() {
+			result := strings.IndexAny("测试中文", "语文")
+			fmt.Println(result)
+			So(result, ShouldEqual, 9)
+		})
+		// 如果有多个只返回第一个找到的位置
+		Convey("测试中文有多个的情况:", func() {
+			result := strings.IndexAny("测试中文，我是文化人", "语文")
+			fmt.Println(result)
+			So(result, ShouldEqual, 9)
+		})
+	})
+}
+
+/**
+
+
+目标参数说明
+s string
+	用于查找的目标字符串
+chars string
+	用于查找的子字符串
+
+返回值
+int
+	找到的最后一个字符串的位置
+
+
+测试命令
+go test -v -test.run
+*/
+func TestLastIndexAny(t *testing.T) {
 }
