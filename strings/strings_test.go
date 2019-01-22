@@ -12,10 +12,14 @@ import (
 统计字符串中有多少个子字符串
 
 目标参数说明
-s
+s string
 	用于查找的字符串
-substr
+substr string
 	要查找统计的子字符串
+
+返回值
+int
+	子字符串个数
 
 测试命令
 	go test -v -test.run TestCount
@@ -44,10 +48,14 @@ func TestCount(t *testing.T) {
 字符串s中是否包含子字符串substr
 
 目标参数说明
-s
+s string
 	用于查找的字符串
-substr
+substr string
 	子字符串
+
+返回值
+bool
+	是否包含
 
 测试命令
 go test -v -test.run TestContains
@@ -80,7 +88,7 @@ func TestContains(t *testing.T) {
 			So(result, ShouldBeTrue)
 		})
 		Convey("中文测试是否包含:", func() {
-			result := strings.Contains("我是最帅的aaa", "帅")
+			result := strings.Contains("你是猴子请来的救兵吗", "猴子")
 			fmt.Println(result)
 			So(result, ShouldBeTrue)
 		})
@@ -106,10 +114,14 @@ func TestContains(t *testing.T) {
 字符串s中是否包含子字符串chars中的任意字符
 
 目标参数说明
-s
+s string
 	用于查找的字符串
-chars
+chars string
 	子字符串
+
+返回值
+bool
+	是否包含
 
 测试命令
 	go test -v -test.run TestContainsany
@@ -122,7 +134,7 @@ func TestContainsany(t *testing.T) {
 			So(result, ShouldBeTrue)
 		})
 		Convey("中文测试是否包含:", func() {
-			result := strings.ContainsAny("我是最帅的aaa", "帅哥")
+			result := strings.ContainsAny("你是猴子请来的救兵吗", "猴哥")
 			fmt.Println(result)
 			So(result, ShouldBeTrue)
 		})
@@ -136,5 +148,97 @@ func TestContainsany(t *testing.T) {
 			fmt.Println(result)
 			So(result, ShouldBeFalse)
 		})
+	})
+}
+
+/**
+字符串s中是否包含子字符串chars中的任意字符
+
+目标参数说明
+s string
+	用于查找的字符串
+r rune
+	目标字符
+
+返回值
+bool
+	是否包含
+
+测试命令
+go test -v -test.run TestContainsRune
+*/
+func TestContainsRune(t *testing.T) {
+	Convey("查找是否包含字符", t, func() {
+		Convey("包含字符场景", func() {
+			result := strings.ContainsRune("abc", 'a')
+			fmt.Println(result)
+			So(result, ShouldBeTrue)
+		})
+		Convey("空字符串测试1", func() {
+			result := strings.ContainsRune("", 'a')
+			fmt.Println(result)
+			So(result, ShouldBeFalse)
+		})
+		Convey("中文测试", func() {
+			result := strings.ContainsRune("你是猴子吗", '猴')
+			fmt.Println(result)
+			So(result, ShouldBeTrue)
+		})
+	})
+}
+
+/**
+获取子字符串出现的最后一次位置
+
+目标参数说明
+s string
+	用于查找的字符串
+substr
+	目标子字符串
+
+返回值
+int
+	索引位置，如果substr为空，直接返回s长度，否则返回自字符串所在位置
+	如果不存在返回-1
+
+测试命令
+go test -v -test.run TestLastIndex
+*/
+func TestLastIndex(t *testing.T) {
+	Convey("查找子字符串最后一次出现的位置", t, func() {
+		Convey("查找子字符串最后一次位置:", func() {
+			result := strings.LastIndex("abcabc", "abc")
+			fmt.Println(result)
+			So(result, ShouldEqual, 3)
+		})
+		Convey("不存在情况测试:", func() {
+			result := strings.LastIndex("abcabc", "ddd")
+			fmt.Println(result)
+			So(result, ShouldEqual, -1)
+		})
+		Convey("空字符串测试1:", func() {
+			result := strings.LastIndex("", "abc")
+			fmt.Println(result)
+			So(result, ShouldEqual, -1)
+		})
+		Convey("空字符串测试2:", func() {
+			result := strings.LastIndex("", "")
+			fmt.Println(result)
+			So(result, ShouldEqual, 0)
+		})
+		Convey("空字符串测试3:", func() {
+			s := "abc"
+			result := strings.LastIndex(s, "")
+			fmt.Println(result)
+			So(result, ShouldEqual, len(s))
+		})
+		Convey("中文测试:", func() {
+			s := "我是请来的猴子兵"
+			result := strings.LastIndex(s, "猴子")
+			fmt.Println(result)
+			// 因为中文在utf-8编码下占3个字节
+			So(result, ShouldEqual, 15)
+		})
+
 	})
 }
