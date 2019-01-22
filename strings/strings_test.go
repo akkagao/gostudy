@@ -367,3 +367,39 @@ func TestLastIndexAny(t *testing.T) {
 		})
 	})
 }
+
+/**
+字符在字符串中最后一次出现的位置
+
+目标参数说明
+s string
+	用于查找的目标字符串
+c byte
+	用于查找的字符
+
+返回值
+int
+	最后一个匹配的字符位置
+
+测试命令
+go test -v -test.run TestLastIndexByte
+*/
+func TestLastIndexByte(t *testing.T) {
+	Convey("字符在字符串中最后一次出现的位置", t, func() {
+		Convey("测试存在字符的情况:", func() {
+			result := strings.LastIndexByte("aabbccb", 'b')
+			fmt.Println(result)
+			So(result, ShouldEqual, 6)
+		})
+		Convey("测试不存在字符的情况:", func() {
+			result := strings.LastIndexByte("aabbccb", 'm')
+			fmt.Println(result)
+			So(result, ShouldEqual, -1)
+		})
+		Convey("测试中文:", func() {
+			result := strings.LastIndexByte("猴子又来请猴子当救兵了a,不能找汉字啊a", 'a')
+			fmt.Println(result)
+			So(result, ShouldEqual, 53)
+		})
+	})
+}
