@@ -403,3 +403,39 @@ func TestLastIndexByte(t *testing.T) {
 		})
 	})
 }
+
+/**
+字符窜分割
+
+目标参数说明
+	s:目标字符串
+	seq:用于分割的字符
+	n：分割次数
+
+返回值
+	[]string:分割后的字符串列表
+
+测试命令
+go test -v -test.run TestSplitN
+*/
+func TestSplitN(t *testing.T) {
+	Convey("分割字符串", t, func() {
+		Convey("按照指定字符分割:", func() {
+			s := strings.SplitN("a b c", " ", -1)
+			fmt.Println(s)
+			So(len(s), ShouldEqual, 3)
+		})
+		Convey("分割成三段:", func() {
+			s := strings.SplitN("a b c d", " ", 3)
+			for i, str := range s {
+				fmt.Print(str)
+				if i < len(s)-1 {
+					fmt.Print(",")
+				} else {
+					fmt.Println()
+				}
+			}
+			So(len(s), ShouldEqual, 3)
+		})
+	})
+}
