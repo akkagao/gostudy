@@ -428,7 +428,7 @@ func TestSplitN(t *testing.T) {
 		Convey("分割成三段:", func() {
 			s := strings.SplitN("a b c d", " ", 3)
 			for i, str := range s {
-				fmt.Print(str)
+				fmt.Print("\"" + str + "\"")
 				if i < len(s)-1 {
 					fmt.Print(",")
 				} else {
