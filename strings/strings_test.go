@@ -439,3 +439,23 @@ func TestSplitN(t *testing.T) {
 		})
 	})
 }
+
+/**
+
+go test -v -test.run TestSplitAfterN
+*/
+func TestSplitAfterN(t *testing.T) {
+	Convey("分割字符串", t, func() {
+		Convey("全部分割:", func() {
+			strArray := strings.SplitAfterN("a|b|c|d", "|", 4)
+			for i, s := range strArray {
+				fmt.Print("\"" + s + "\"")
+				if i < len(s)-1 {
+					fmt.Print(",")
+				} else {
+					fmt.Println()
+				}
+			}
+		})
+	})
+}
