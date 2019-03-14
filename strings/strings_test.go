@@ -403,3 +403,7 @@ func TestLastIndexByte(t *testing.T) {
 		})
 	})
 }
+
+func SplitN(t *testing.T) {
+	Convey()
+}
